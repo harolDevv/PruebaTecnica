@@ -1,7 +1,7 @@
 'use client'
 
 //next ui imports
-import {Input, Button} from "@nextui-org/react";
+import {Input, Button, Code} from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
 //react imports
@@ -9,6 +9,7 @@ import { useState } from "react";
 
 //icons
 import { EyeFilledIcon, EyeSlashFilledIcon, LoginIcon, PasswordIcon, UserIcon, CreateAccount, AdressIcon} from "./Icons";
+import { useLoginValidation } from "@/hooks";
 
 
 export const Login = () => {
@@ -23,6 +24,9 @@ export const Login = () => {
             password:''
         }
     )
+
+    //Validacion del formulario
+    const errors = useLoginValidation(inState.user, inState.password)
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -50,6 +54,8 @@ export const Login = () => {
                 placeholder="Numero de cedula"
                 labelPlacement='inside'
                 variant="bordered"
+                errorMessage={ errors.user != 'success' && errors.user}
+                color={errors.user == 'success' && "success"}
                 startContent={
                 <UserIcon className="text-xl text-default-400 pointer-events-none flex-shrink-0" />
                 }
@@ -64,6 +70,8 @@ export const Login = () => {
                 label="Contraseña"
                 variant="bordered"
                 placeholder="Contraseña"
+                errorMessage={ errors.password != 'success' && errors.password}
+                color={errors.password == 'success' && "success"}
                 labelPlacement='inside'
                 endContent={
                     <button className="focus:outline-none" type="button" onClick={toggleVisibility}>

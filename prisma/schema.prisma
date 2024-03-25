@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Persona {
+  id        Int                @id @default(autoincrement())
+  Nombre    String
+  Apellido  String
+  Edad      Int
+  Cedula    String
+  Password  String
+  createdAt DateTime           @default(now())
+  updateAt  DateTime           @updatedAt
+  Direcciones DireccionPersona[]  // Relación uno a muchos
+}
+
+model DireccionPersona {
+  id              Int          @id @default(autoincrement())
+  PersonaId       Int          // Campo de relación
+  Persona         Persona      @relation(fields: [PersonaId], references: [id])
+  CallePrincipal  String
+  CalleSecundaria String
+  Ciudad          Int
+  Provincia       String
+  Pais            String
+  createdAt       DateTime      @default(now())
+  updateAt        DateTime      @updatedAt
+}
