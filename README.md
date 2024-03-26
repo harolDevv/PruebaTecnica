@@ -22,14 +22,43 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Especificaciones
 
+```bash
 Libreria Front: React
 Framework React: Nextjs //ofrece back y front en un solo proyecto
 Back: Node.js + Express
 Bibliote UI: NextUi
 ORM: Prisma
+```
 
 ## Script Db
 
+```
+No se pudo generar uns script completo por problemas de compatibilidad que tenia el sistema macOs con sql-server
+pero estas serias las querys a utilizar para generar las tabalas utilizadas para este proyecto:
+```
+
+```bash
+CREATE TABLE Persona (
+    id INT PRIMARY KEY IDENTITY,
+    Nombre NVARCHAR(255),
+    Apellido NVARCHAR(255),
+    Edad INT,
+    Cedula NVARCHAR(10),
+    isActive BIT DEFAULT 1
+);
+
+CREATE TABLE DireccionPersona (
+    id INT PRIMARY KEY IDENTITY,
+    PersonaId INT,
+    CallePrincipal NVARCHAR(255),
+    CalleSecundaria NVARCHAR(255),
+    Ciudad NVARCHAR(255),
+    Provincia NVARCHAR(255),
+    Pais NVARCHAR(255),
+    isActive BIT DEFAULT 1,
+    FOREIGN KEY (PersonaId) REFERENCES Persona(id)
+);
+```
 
 ## Learn More
 
@@ -45,4 +74,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
 # PruebaTecnica

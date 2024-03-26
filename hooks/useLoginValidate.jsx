@@ -7,7 +7,7 @@ export const useLoginValidation = (user, password) => {
     useEffect(() => {
         if (user === '') {
         setErrors((prev) => ({ ...prev, user: 'Usuario obligatorio' }));
-        } else if (user.length < 10) {
+        } else if (user.length < 2) {
         setErrors((prev) => ({ ...prev, user: 'Usuario invalido' }));
         } else {
         setErrors((prev) => ({ ...prev, user: 'success' }));

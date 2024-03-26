@@ -12,6 +12,11 @@ import { EyeFilledIcon, EyeSlashFilledIcon, LoginIcon, PasswordIcon, UserIcon, C
 import { useLoginValidation } from "@/hooks";
 
 
+
+//import alerta
+import Swal from 'sweetalert2'
+
+
 export const Login = () => {
 
     const router = useRouter()
@@ -30,11 +35,23 @@ export const Login = () => {
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleLogin = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
-        if(inState.user == '123' && inState.password == '123'){
-            router.push('/Home')
+        //Una autenticacion muy basico por el alcance del proyecto
+        if(inState.user == 'Admin' && inState.password == 'Admin123'){
+            Swal.fire({
+                title: "Bienvenido",
+                text: `Que gusto tenerte de vuelta`,
+                icon: "success"
+            });    
+            router.push('/dashboard')
             router.refresh()
+        }else{
+            Swal.fire({
+                title: "Error",
+                text: `datos incorrectos`,
+                icon: "error"
+            });
         }
     }
 
@@ -43,7 +60,7 @@ export const Login = () => {
         <div className="my-3">
             <h1 style={{fontSize:'35px', margin:'20px 0px', display:'flex', alignItems:'center'}}><AdressIcon/> Dummy<em style={{color:''}}>Dress</em></h1>
         </div>
-        <form style={{width:'35%', minWidth:'340px'}} onSubmit={(e) => handleLogin(e)}>
+        <form style={{width:'35%', minWidth:'340px'}} onSubmit={onSubmit}>
             <Input
             onChange={(e) => setInState({...inState, [e.target.name]: e.target.value})}
             name="user"
@@ -89,16 +106,6 @@ export const Login = () => {
             />
             <Button type="submit" className="w-full mt-2" color="success" variant="ghost" startContent={<LoginIcon/>} size='lg'>
                 Iniciar sesion
-            </Button>
-            
-            <div className="flex items-center">
-                <div className="text-center h-1"></div>
-                <span className="flex-1 text-center">o</span>
-                <div className="text-center h-1"></div>
-            </div>
-
-            <Button className="w-full mt-2" color="" variant="ghost" startContent={<CreateAccount/>} size='lg'>
-                Crear cuenta
             </Button>
         </form>
     </div>

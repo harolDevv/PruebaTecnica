@@ -14,28 +14,29 @@ datasource db {
 }
 
 model User {
-  id        Int                @id @default(autoincrement())
-  username  String
-  password  String
+  id       Int    @id @default(autoincrement())
+  username String
+  password String
 }
 
 model Persona {
-  id        Int                @id @default(autoincrement())
-  Nombre    String
-  Apellido  String
-  Edad      Int
-  Cedula    String
-  Password  String
-  Direcciones DireccionPersona[]  // Relación uno a muchos
+  id          Int                @id @default(autoincrement())
+  Nombre      String
+  Apellido    String
+  Edad        Int
+  Cedula      String
+  isActive    Boolean            @default(true)
+  Direcciones DireccionPersona[] // Relación uno a muchos
 }
 
 model DireccionPersona {
-  id              Int          @id @default(autoincrement())
-  PersonaId       Int          // Campo de relación
-  Persona         Persona      @relation(fields: [PersonaId], references: [id])
+  id              Int     @id @default(autoincrement())
+  PersonaId       Int // Campo de relación
+  Persona         Persona @relation(fields: [PersonaId], references: [id])
   CallePrincipal  String
   CalleSecundaria String
-  Ciudad          Int
+  Ciudad          String
   Provincia       String
   Pais            String
+  isActive        Boolean @default(true)
 }
